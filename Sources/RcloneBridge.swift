@@ -1,5 +1,5 @@
 import Foundation
-import Rclonebridge
+import RcloneKit
 
 /// A thread-safe Swift wrapper around the `RcloneKit` xcframework (gomobile).
 class RcloneBridge {
