@@ -8,6 +8,9 @@ targets:
     deploymentTarget: "16.0"
     sources:
       - Sources
+    dependencies:
+      - framework: Frameworks/RcloneKit.xcframework
+        embed: true
     info:
       path: Sources/Info.plist
       properties:
@@ -19,4 +22,3 @@ targets:
       CODE_SIGN_IDENTITY: ""
       CODE_SIGNING_REQUIRED: NO
       CODE_SIGNING_ALLOWED: NO
-      SWIFT_OBJC_BRIDGING_HEADER: "Sources/RcloneGUI-Bridging-Header.h"
