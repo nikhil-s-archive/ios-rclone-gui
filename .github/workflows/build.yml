@@ -21,15 +21,25 @@ jobs:
       - name: Generate Xcode Project
         run: xcodegen generate
 
-      - name: Build
-        env:
-          scheme: RcloneGUI
-          platform: iOS Simulator
+      - name: Build and Archive
         run: |
-          xcodebuild build \
+          xcodebuild archive \
             -project RcloneGUI.xcodeproj \
-            -scheme "$scheme" \
-            -destination "platform=$platform,name=iPhone 17" \
+            -scheme RcloneGUI \
+            -destination "generic/platform=iOS" \
+            -archivePath build/RcloneGUI.xcarchive \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
+
+      - name: Package IPA
+        run: |
+          mkdir -p Payload
+          mv build/RcloneGUI.xcarchive/Products/Applications/RcloneGUI.app Payload/
+          zip -r RcloneGUI.ipa Payload
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RcloneGUI-Unsigned
+          path: RcloneGUI.ipa
